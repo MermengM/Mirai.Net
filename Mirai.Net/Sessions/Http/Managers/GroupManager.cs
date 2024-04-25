@@ -286,6 +286,20 @@ public static class GroupManager
     }
 
     /// <summary>
+    ///     获取群成员列表
+    /// </summary>
+    /// <param name="group">目标群号</param>
+    /// <returns></returns>
+    public static async Task<List<Member>> GetGroupMemberListAsync(string group)
+    {
+        var response = await HttpEndpoints.MemberList.GetAsync(new
+        {
+            target = group,
+        });
+
+        return JsonConvert.DeserializeObject<List<Member>>(response.Fetch("data"));
+    }
+    /// <summary>
     ///     修改群员设置,需要相关的权限
     /// </summary>
     /// <param name="memberQQ">目标的QQ号</param>
